@@ -383,8 +383,8 @@ FRONTEND_HTML = """
 <body>
     <div class="container">
         <header>
-            <h1>🖼️ Análise de Imagens</h1>
-            <p>Powered by Google Cloud Vision API</p>
+            <h1>Análise de Imagens</h1>            
+            <p>Universidade Autónoma de Lisboa</p>
         </header>
         
         <div class="content">
