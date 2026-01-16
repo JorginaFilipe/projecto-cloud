@@ -1,9 +1,7 @@
-"""
-Frontend HTML/CSS/JS para Visualizar Resultados das Análises
-Salve como: static/index.html
-"""
+""" Frontend HTML/CSS/JS para Visualizar Resultados das Análises Salve como: static/index.html """
 <!DOCTYPE html>
 <html lang="pt-PT">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,13 +47,13 @@ Salve como: static/index.html
             background: white;
             border-radius: 10px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
         
         .card h2 {
@@ -199,7 +197,7 @@ Salve como: static/index.html
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             overflow: auto;
         }
         
@@ -216,7 +214,7 @@ Salve como: static/index.html
             max-width: 700px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
         
         .close {
@@ -248,7 +246,9 @@ Salve como: static/index.html
             margin-bottom: 10px;
         }
         
-        .label-item, .texto-item, .rosto-item {
+        .label-item,
+        .texto-item,
+        .rosto-item {
             background: white;
             padding: 10px;
             margin: 8px 0;
@@ -274,7 +274,7 @@ Salve como: static/index.html
             margin-right: 15px;
             vertical-align: middle;
             border: 2px solid #ddd;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
         
         .tabs {
@@ -310,24 +310,24 @@ Salve como: static/index.html
             .content {
                 grid-template-columns: 1fr;
             }
-            
             .resultados-grid {
                 grid-template-columns: 1fr;
             }
-            
             header h1 {
                 font-size: 1.8em;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1>🖼️ Análise de Imagens</h1>
-            <p>Powered by Google Cloud Vision API</p>
+            <h1>Análise de Imagens</h1>
+            <p>Google Cloud Vision API</p>
+            <p>Universidade Autónoma de Lisboa</p>
         </header>
-        
+
         <div class="content">
             <!-- Card 1: Upload -->
             <div class="card">
@@ -345,7 +345,7 @@ Salve como: static/index.html
                 </div>
                 <div id="statusUpload" class="status" style="display: none;"></div>
             </div>
-            
+
             <!-- Card 2: Resultados Recentes -->
             <div class="card">
                 <h2>2. Resultados Recentes</h2>
@@ -358,20 +358,20 @@ Salve como: static/index.html
                 <div id="contadorResultados" style="margin-top: 10px; color: #667eea; font-weight: bold;"></div>
             </div>
         </div>
-        
+
         <!-- Galeria de Resultados -->
         <div class="card">
             <h2>Análises Realizadas</h2>
             <div id="resultados" class="resultados-grid"></div>
         </div>
     </div>
-    
+
     <!-- Modal para detalhes -->
     <div id="detailModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="fecharModal()">&times;</span>
             <h2 id="modalTitle"></h2>
-            
+
             <div class="tabs">
                 <button class="tab-button active" onclick="mostrarTab('labels')">Objetos</button>
                 <button class="tab-button" onclick="mostrarTab('textos')">Texto</button>
@@ -379,7 +379,7 @@ Salve como: static/index.html
                 <button class="tab-button" onclick="mostrarTab('cores')">Cores</button>
                 <button class="tab-button" onclick="mostrarTab('seguranca')">Segurança</button>
             </div>
-            
+
             <!-- Tab: Labels -->
             <div id="labels" class="tab-content active">
                 <div class="detail-section">
@@ -387,7 +387,7 @@ Salve como: static/index.html
                     <div id="labelsContent"></div>
                 </div>
             </div>
-            
+
             <!-- Tab: Textos -->
             <div id="textos" class="tab-content">
                 <div class="detail-section">
@@ -395,7 +395,7 @@ Salve como: static/index.html
                     <div id="textosContent"></div>
                 </div>
             </div>
-            
+
             <!-- Tab: Rostos -->
             <div id="rostos" class="tab-content">
                 <div class="detail-section">
@@ -403,7 +403,7 @@ Salve como: static/index.html
                     <div id="rostosContent"></div>
                 </div>
             </div>
-            
+
             <!-- Tab: Cores -->
             <div id="cores" class="tab-content">
                 <div class="detail-section">
@@ -411,7 +411,7 @@ Salve como: static/index.html
                     <div id="coresContent"></div>
                 </div>
             </div>
-            
+
             <!-- Tab: Segurança -->
             <div id="seguranca" class="tab-content">
                 <div class="detail-section">
@@ -421,11 +421,11 @@ Salve como: static/index.html
             </div>
         </div>
     </div>
-    
+
     <script>
         const API_UPLOAD = '/upload';
         const API_RESULTADOS = '/resultados';
-        
+
         // Dicionário completo de tradução de labels
         const dicionarioLabels = {
             // Partes do corpo
@@ -465,7 +465,7 @@ Salve como: static/index.html
             'belly': 'Barriga',
             'foot': 'Pé',
             'feet': 'Pés',
-            
+
             // Características e expressões
             'facial expression': 'Expressão facial',
             'smile': 'Sorriso',
@@ -481,7 +481,7 @@ Salve como: static/index.html
             'curly hair': 'Cabelo caracol',
             'straight hair': 'Cabelo liso',
             'wavy hair': 'Cabelo ondulado',
-            
+
             // Penteados
             'cornrows': 'Tranças',
             'dreadlocks': 'Tranças de Rastafári',
@@ -491,7 +491,7 @@ Salve como: static/index.html
             'bun': 'Coque',
             'buzz cut': 'Corte de cabelo curto',
             'mohawk': 'Penteado Mohawk',
-            
+
             // Roupa e acessórios
             'bra': 'Sutiã',
             'bras': 'Sutiãs',
@@ -526,7 +526,7 @@ Salve como: static/index.html
             'tie': 'Gravata',
             'scarf': 'Lenço',
             'belt': 'Cinto',
-            
+
             // Fotografia e tipo de imagem
             'portrait photography': 'Fotografia de retrato',
             'portrait': 'Retrato',
@@ -538,13 +538,13 @@ Salve como: static/index.html
             'model': 'Modelo',
             'art model': 'Modelo de arte',
             'fashion model': 'Modelo de moda',
-            
+
             // Tipos de corpo
             'muscular': 'Musculado(a)',
             'slim': 'Magro(a)',
             'curvy': 'Com curvas',
             'athletic': 'Atlético(a)',
-            
+
             // Gênero
             'woman': 'Mulher',
             'man': 'Homem',
@@ -554,14 +554,14 @@ Salve como: static/index.html
             'male': 'Masculino',
             'person': 'Pessoa',
             'people': 'Pessoas',
-            
+
             // Etnias/Origem (tradução neutra)
             'african': 'Africano(a)',
             'asian': 'Asiático(a)',
             'caucasian': 'Caucasiano(a)',
             'indian': 'Indiano(a)',
             'latino': 'Latino(a)',
-            
+
             // Outras características
             'young': 'Jovem',
             'old': 'Idoso(a)',
@@ -571,7 +571,7 @@ Salve como: static/index.html
             'senior': 'Idoso(a)',
             'elderly': 'Idoso(a)',
             'teenager': 'Adolescente',
-            
+
             // Furniture e objetos
             'furniture': 'Móvel',
             'chair': 'Cadeira',
@@ -597,7 +597,7 @@ Salve como: static/index.html
             'computer': 'Computador',
             'keyboard': 'Teclado',
             'mouse': 'Rato',
-            
+
             // Arte e design
             'art': 'Arte',
             'painting': 'Pintura',
@@ -607,7 +607,7 @@ Salve como: static/index.html
             'fashion': 'Moda',
             'graphic design': 'Design gráfico',
             'graphics': 'Gráficos',
-            
+
             // Cores
             'red': 'Vermelho',
             'blue': 'Azul',
@@ -626,25 +626,25 @@ Salve como: static/index.html
             'cyan': 'Ciano',
             'magenta': 'Magenta'
         };
-        
+
         // Função para traduzir labels
         function traduzirLabel(label) {
             const labelMinuscula = label.toLowerCase();
             return dicionarioLabels[labelMinuscula] || label;
         }
-        
+
         // Setup drag and drop
         const dropZone = document.getElementById('dropZone');
-        
+
         dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropZone.classList.add('dragover');
         });
-        
+
         dropZone.addEventListener('dragleave', () => {
             dropZone.classList.remove('dragover');
         });
-        
+
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropZone.classList.remove('dragover');
@@ -653,37 +653,37 @@ Salve como: static/index.html
                 document.getElementById('fileInput').files = files;
             }
         });
-        
+
         // Upload de imagem
         async function uploadImagem() {
             const fileInput = document.getElementById('fileInput');
             const file = fileInput.files[0];
             const statusDiv = document.getElementById('statusUpload');
             const uploadBtn = document.getElementById('uploadBtn');
-            
+
             if (!file) {
                 mostrarStatus(statusDiv, 'Por favor, seleccione uma imagem!', 'error');
                 return;
             }
-            
+
             const formData = new FormData();
             formData.append('file', file);
-            
+
             mostrarStatus(statusDiv, '⏳ A enviar imagem...', 'loading');
             uploadBtn.disabled = true;
-            
+
             try {
                 const response = await fetch(API_UPLOAD, {
                     method: 'POST',
                     body: formData
                 });
-                
+
                 const dados = await response.json();
-                
+
                 if (response.ok) {
                     mostrarStatus(statusDiv, '✅ Upload realizado! A processar...', 'success');
                     fileInput.value = '';
-                    
+
                     // Aguardar alguns segundos e recarregar resultados
                     setTimeout(() => {
                         carregarResultados();
@@ -697,24 +697,27 @@ Salve como: static/index.html
                 uploadBtn.disabled = false;
             }
         }
-        
+
         // Carregar resultados
         async function carregarResultados() {
             try {
                 const response = await fetch(API_RESULTADOS);
                 const dados = await response.json();
                 const resultados = dados.resultados || [];
-                
+
                 const contador = document.getElementById('contadorResultados');
                 contador.textContent = `Total: ${resultados.length} análise(s)`;
-                
+
                 let html = '';
-                
+
                 resultados.forEach(resultado => {
                     const data = new Date(resultado.data_processamento);
-                    const dataFormatada = data.toLocaleDateString('pt-PT') + ' ' + 
-                                         data.toLocaleTimeString('pt-PT', {hour: '2-digit', minute:'2-digit'});
-                    
+                    const dataFormatada = data.toLocaleDateString('pt-PT') + ' ' +
+                        data.toLocaleTimeString('pt-PT', {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+
                     html += `
                         <div class="resultado-card" onclick="abrirDetalhes('${resultado.id}', ${JSON.stringify(resultado).replace(/"/g, '&quot;')})">
                             <h3 title="${resultado.nome_arquivo}">
@@ -738,22 +741,22 @@ Salve como: static/index.html
                         </div>
                     `;
                 });
-                
+
                 document.getElementById('resultados').innerHTML = html || '<p style="text-align: center; color: #999;">Nenhuma análise realizada ainda.</p>';
-                
+
             } catch (erro) {
-                document.getElementById('resultados').innerHTML = 
+                document.getElementById('resultados').innerHTML =
                     '<p style="color: red;">Erro ao carregar resultados: ' + erro.message + '</p>';
             }
         }
-        
+
         // Abrir modal com detalhes
         function abrirDetalhes(docId, resultado) {
             const modal = document.getElementById('detailModal');
             const titulo = document.getElementById('modalTitle');
-            
+
             titulo.textContent = resultado.nome_arquivo;
-            
+
             // Preencher labels
             const labelsHtml = resultado.resultados.labels
                 .sort((a, b) => b.score - a.score)
@@ -765,7 +768,7 @@ Salve como: static/index.html
                     </div>
                 `).join('');
             document.getElementById('labelsContent').innerHTML = labelsHtml || '<p>Nenhum objeto detectado.</p>';
-            
+
             // Preencher textos
             const textoCompleto = resultado.resultados.texto_completo || 'Nenhum texto detectado.';
             const textosHtml = `
@@ -874,7 +877,7 @@ Salve como: static/index.html
                 const dados = await response.json();
                 
                 if (response.ok) {
-                    alert(`✅ Base de dados limpa!\n\n${dados.total} imagens foram eliminadas.`);
+                    alert(`✅ Base de dados limpa!\n\n${dados.total} as imagens foram eliminadas.`);
                     carregarResultados();
                 } else {
                     alert('❌ Erro: ' + dados.erro);
@@ -898,4 +901,5 @@ Salve como: static/index.html
         });
     </script>
 </body>
+
 </html>
